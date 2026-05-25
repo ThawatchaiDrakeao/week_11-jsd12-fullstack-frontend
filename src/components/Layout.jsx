@@ -5,7 +5,7 @@ export function Layout() {
   return (
     <div>
       <Navbar />
-      <section className="bg-amber-200 flex justify-center">
+      <section className="flex justify-center bg-zinc-950">
         <Outlet />
       </section>
     </div>

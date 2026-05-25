@@ -35,15 +35,15 @@ export function Navbar() {
 
   return (
     <nav>
-      <div className="flex justify-between px-10 items-center w-full bg-teal-500 h-14 border-b-2 border-black gap-x-6 text-2xl text-white ">
-        <ul className="flex items-center gap-x-6">
+      <div className="flex min-h-12 w-full flex-col gap-2 border-b border-cyan-300/20 bg-slate-950/88 px-4 py-2 text-slate-100 shadow-lg shadow-black/30 backdrop-blur-md lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <ul className="flex items-center gap-x-5 text-xl font-semibold">
           <li>
-            <Link to="/" className="hover:text-yellow-500">
+            <Link to="/" className="transition hover:text-orange-300">
               Home
             </Link>
           </li>
           <li>
-            <Link to="/owner" className="hover:text-yellow-500">
+            <Link to="/owner" className="transition hover:text-orange-300">
               Owner
             </Link>
           </li>
@@ -51,27 +51,30 @@ export function Navbar() {
 
         <div className="flex items-center gap-x-3">
           {authLoading ? (
-            <span className="text-base">Checking session…</span>
+            <span className="text-sm text-cyan-100">Checking session...</span>
           ) : user ? (
             <>
-              <span className="text-base">
+              <span className="text-sm text-slate-200">
                 Logged in as <span className="font-bold">{user.username}</span>
               </span>
               <button
                 onClick={logout}
-                className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-xl text-base"
+                className="h-8 cursor-pointer rounded-md bg-orange-500 px-3 text-sm font-bold text-slate-950 transition hover:bg-orange-400"
               >
                 Logout
               </button>
             </>
           ) : (
-            <form onSubmit={handleSubmit} className="flex items-center gap-x-2">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-wrap items-center gap-2"
+            >
               {mode === "signup" && (
                 <input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="username"
-                  className="bg-white text-black px-2 rounded border text-base w-32"
+                  className="h-8 w-28 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                   type="text"
                   required
                   minLength={3}
@@ -82,7 +85,7 @@ export function Navbar() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email"
-                className="bg-white text-black px-2 rounded border text-base w-44"
+                className="h-8 w-40 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                 type="email"
                 required
               />
@@ -91,7 +94,7 @@ export function Navbar() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="password"
                 type="password"
-                className="bg-white text-black px-2 rounded border text-base w-32"
+                className="h-8 w-28 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                 required
                 minLength={8}
                 maxLength={72}
@@ -99,7 +102,7 @@ export function Navbar() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="cursor-pointer bg-sky-500 hover:bg-sky-600 disabled:bg-sky-300 text-white px-3 py-1 rounded-xl text-base"
+                className="h-8 cursor-pointer rounded-md bg-cyan-500 px-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300 disabled:bg-cyan-900 disabled:text-slate-400"
               >
                 {mode === "login" ? "Login" : "Sign up"}
               </button>
@@ -108,7 +111,7 @@ export function Navbar() {
                 onClick={() =>
                   switchMode(mode === "login" ? "signup" : "login")
                 }
-                className="cursor-pointer text-teal-100 hover:text-white underline text-sm"
+                className="cursor-pointer text-sm text-orange-200 underline transition hover:text-orange-100"
               >
                 {mode === "login" ? "Sign up" : "Log in"}
               </button>
@@ -118,7 +121,7 @@ export function Navbar() {
       </div>
 
       {authError ? (
-        <div className="bg-rose-200 text-rose-900 px-10 py-2 text-sm border-b-2 border-black">
+        <div className="border-b border-rose-300/30 bg-rose-950/90 px-10 py-2 text-sm font-semibold text-rose-100">
           {authError}
         </div>
       ) : null}

@@ -89,18 +89,21 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex min-w-[760px] flex-col">
       {formError && (
-        <div className="w-full mb-2 px-4 py-2 bg-rose-100 text-rose-800 text-sm rounded border border-rose-300">
+        <div className="mb-2.5 w-full rounded-md border border-orange-300/30 bg-orange-400/10 px-3 py-2.5 text-xs font-semibold text-orange-100">
           {formError}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="pb-3">
+      <form
+        onSubmit={handleSubmit}
+        className="mb-3 grid grid-cols-[1fr_1.4fr_0.8fr_1fr_auto] gap-2"
+      >
         <input
           onChange={handleChange}
           value={form.username}
           name="username"
-          className="bg-white mx-1 w-32 px-2 rounded border"
+          className="h-8 rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
           placeholder="Username"
           required
           minLength={3}
@@ -110,7 +113,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
           onChange={handleChange}
           value={form.email}
           name="email"
-          className="bg-white mx-1 w-64 px-2 rounded border"
+          className="h-8 rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
           placeholder="Email"
           type="email"
           required
@@ -119,7 +122,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
           onChange={handleChange}
           value={form.role}
           name="role"
-          className="bg-white mx-1 w-32 px-2 rounded border"
+          className="h-8 rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
         >
           <option value="">Select role</option>
           <option value="user">user</option>
@@ -129,7 +132,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
           onChange={handleChange}
           value={form.password}
           name="password"
-          className="bg-white mx-1 w-32 px-2 rounded border"
+          className="h-8 rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
           placeholder="Password"
           type="password"
           required
@@ -138,68 +141,68 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
         />
         <button
           type="submit"
-          className="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 mx-1 rounded-4xl"
+          className="h-8 cursor-pointer rounded-md bg-cyan-500 px-3 text-xs font-bold text-slate-950 transition hover:bg-cyan-300"
         >
-          Save new user
+          Save
         </button>
       </form>
-      <table className="w-full border-separate">
+      <table className="w-full border-collapse text-left text-xs">
         <thead>
-          <tr className="text-center font-bold bg-gray-200">
-            <th className="border rounded-tl-lg p-2">Username</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Role</th>
-            <th className="border rounded-tr-lg p-2">Action</th>
+          <tr className="border-b border-cyan-300/20 bg-cyan-950/30 text-xs uppercase tracking-normal text-cyan-100">
+            <th className="px-3 py-2.5 font-extrabold">Username</th>
+            <th className="px-3 py-2.5 font-extrabold">Email</th>
+            <th className="px-3 py-2.5 font-extrabold">Role</th>
+            <th className="px-3 py-2.5 text-right font-extrabold">Action</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user._id} className="bg-white">
+            <tr key={user._id} className="border-b border-cyan-300/10 bg-slate-950/45">
               {editId === user._id ? (
                 <>
-                  <td className="border p-2 ">
+                  <td className="px-3 py-2.5">
                     <input
                       value={editForm.username}
                       onChange={handleEditChange}
                       name="username"
-                      className="bg-white w-24 px-2 rounded border"
+                      className="h-8 w-full rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
                       required
                       minLength={3}
                       maxLength={20}
                     />
                   </td>
-                  <td className="border p-2 ">
+                  <td className="px-3 py-2.5">
                     <input
                       value={editForm.email}
                       onChange={handleEditChange}
                       name="email"
-                      className="bg-white w-full px-2 rounded border"
+                      className="h-8 w-full rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
                       type="email"
                       required
                     />
                   </td>
-                  <td className="border p-2 ">
+                  <td className="px-3 py-2.5">
                     <select
                       value={editForm.role}
                       onChange={handleEditChange}
                       name="role"
-                      className="bg-white w-24 px-2 rounded border"
+                      className="h-8 w-full rounded-md border border-cyan-300/20 bg-slate-950/80 px-2.5 text-xs text-slate-100 outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/20"
                     >
                       <option value="">Select role</option>
                       <option value="user">user</option>
                       <option value="admin">admin</option>
                     </select>
                   </td>
-                  <td className="border p-2 ">
+                  <td className="px-3 py-2.5 text-right">
                     <button
                       onClick={() => handleEditSave(user._id)}
-                      className="cursor-pointer bg-teal-400 hover:bg-teal-500 text-white px-2 rounded-xl"
+                      className="mr-1.5 h-7 cursor-pointer rounded-md bg-cyan-500 px-2.5 text-[11px] font-bold text-slate-950 transition hover:bg-cyan-300"
                     >
                       Save
                     </button>
                     <button
                       onClick={handleEditCancel}
-                      className="cursor-pointer bg-gray-400 hover:bg-gray-500 text-white px-2 rounded-xl"
+                      className="h-7 cursor-pointer rounded-md border border-cyan-300/20 bg-slate-900/80 px-2.5 text-[11px] font-bold text-slate-200 transition hover:bg-cyan-300/10"
                     >
                       Cancel
                     </button>
@@ -207,19 +210,31 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
                 </>
               ) : (
                 <>
-                  <td className="border p-2 ">{user.username}</td>
-                  <td className="border p-2 ">{user.email}</td>
-                  <td className="border p-2 ">{user.role}</td>
-                  <td className="border p-2 ">
+                  <td className="px-3 py-2.5 font-bold text-slate-100">
+                    {user.username}
+                  </td>
+                  <td className="px-3 py-2.5 text-slate-300">{user.email}</td>
+                  <td className="px-3 py-2.5">
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-[11px] font-extrabold ${
+                        user.role === "admin"
+                          ? "bg-orange-400/20 text-orange-100"
+                          : "bg-cyan-400/15 text-cyan-100"
+                      }`}
+                    >
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
                     <button
                       onClick={() => handleEdit(user)}
-                      className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-white px-2 rounded-xl"
+                      className="mr-1.5 h-7 cursor-pointer rounded-md border border-cyan-300/20 bg-slate-900/80 px-2.5 text-[11px] font-bold text-slate-200 transition hover:bg-cyan-300/10"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(user._id)}
-                      className="cursor-pointer bg-rose-400 hover:bg-rose-500 text-white px-2 rounded-xl"
+                      className="h-7 cursor-pointer rounded-md bg-orange-600 px-2.5 text-[11px] font-bold text-white transition hover:bg-orange-500"
                     >
                       Delete
                     </button>
