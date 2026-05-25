@@ -15,7 +15,9 @@ export default function Home() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${apiBase}/users`);
+      const res = await fetch(`${apiBase}/users`, {
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Failed to fetch users");
       const response = await res.json();
       setUsers(response.data);

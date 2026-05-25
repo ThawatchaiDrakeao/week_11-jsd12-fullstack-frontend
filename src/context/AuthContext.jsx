@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const apiBase = import.meta.env.VITE_API_URL;
+  const apiBase = import.meta.env.VITE_API_URL || "http://localhost:3002/api/v2";
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [authError, setAuthError] = useState(null);
@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
         throw new Error(body.message || body.error || "Login failed");
       }
       const data = await res.json();
-      setUser(data.user);
+      setUser(data.user || data.data?.user || data.data);
       return true;
     } catch (err) {
       setAuthError(err.message || "Login failed");

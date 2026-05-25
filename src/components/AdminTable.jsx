@@ -68,7 +68,7 @@ export function AdminTable({ users, setUsers, fetchUsers, API }) {
     setFormError(null);
     try {
       const res = await fetch(`${API}/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editForm),
