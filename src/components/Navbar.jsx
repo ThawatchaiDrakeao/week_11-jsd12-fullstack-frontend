@@ -17,6 +17,20 @@ export function Navbar() {
     setPassword("");
   };
 
+  const pasteIntoField = (e, value, setValue, maxLength) => {
+    const pastedText = e.clipboardData.getData("text");
+    if (!pastedText) return;
+
+    e.preventDefault();
+
+    const input = e.currentTarget;
+    const start = input.selectionStart ?? value.length;
+    const end = input.selectionEnd ?? value.length;
+    const nextValue = `${value.slice(0, start)}${pastedText}${value.slice(end)}`;
+
+    setValue(maxLength ? nextValue.slice(0, maxLength) : nextValue);
+  };
+
   const switchMode = (next) => {
     setMode(next);
     resetForm();
@@ -79,7 +93,12 @@ export function Navbar() {
                 <input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  onPaste={(e) => pasteIntoField(e, username, setUsername, 20)}
                   placeholder="username"
+                  name="username"
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   className="h-8 w-28 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                   type="text"
                   required
@@ -90,9 +109,12 @@ export function Navbar() {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onPaste={(e) => pasteIntoField(e, email, setEmail)}
                 placeholder="email"
                 name="email"
                 autoComplete="email"
+                autoCapitalize="none"
+                autoCorrect="off"
                 spellCheck={false}
                 className="h-10 min-w-0 flex-1 rounded-md border border-cyan-300/30 bg-slate-900 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 sm:w-80 sm:flex-none"
                 type="email"
@@ -101,6 +123,7 @@ export function Navbar() {
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onPaste={(e) => pasteIntoField(e, password, setPassword, 72)}
                 placeholder="password"
                 type="password"
                 name="password"
