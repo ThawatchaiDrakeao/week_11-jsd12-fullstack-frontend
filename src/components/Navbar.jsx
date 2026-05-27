@@ -33,6 +33,18 @@ export function Navbar() {
     if (ok) resetForm();
   };
 
+  const handleEmailPaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    const match = pasted.match(/[^\s"',:]+@[^\s"',:]+/);
+    setEmail(match ? match[0] : pasted.trim());
+  };
+
+  const handlePasswordPaste = (e) => {
+    e.preventDefault();
+    setPassword(e.clipboardData.getData("text").trim());
+  };
+
   return (
     <nav>
       <div className="flex min-h-12 w-full flex-col gap-2 border-b border-cyan-300/20 bg-slate-950/88 px-4 py-2 text-slate-100 shadow-lg shadow-black/30 backdrop-blur-md lg:flex-row lg:items-center lg:justify-between lg:px-8">
@@ -84,17 +96,26 @@ export function Navbar() {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onPaste={handleEmailPaste}
                 placeholder="email"
-                className="h-8 w-40 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
+                name="email"
+                autoComplete="email"
+                spellCheck={false}
+                className="h-8 w-64 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                 type="email"
                 required
               />
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onPaste={handlePasswordPaste}
                 placeholder="password"
                 type="password"
-                className="h-8 w-28 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
+                name="password"
+                autoComplete={
+                  mode === "login" ? "current-password" : "new-password"
+                }
+                className="h-8 w-40 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
                 required
                 minLength={8}
                 maxLength={72}
