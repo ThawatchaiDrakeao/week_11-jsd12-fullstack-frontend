@@ -33,16 +33,10 @@ export function Navbar() {
     if (ok) resetForm();
   };
 
-  const handleEmailPaste = (e) => {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData("text");
-    const match = pasted.match(/[^\s"',:]+@[^\s"',:]+/);
-    setEmail(match ? match[0] : pasted.trim());
-  };
-
-  const handlePasswordPaste = (e) => {
-    e.preventDefault();
-    setPassword(e.clipboardData.getData("text").trim());
+  const fillDemoLogin = () => {
+    setMode("login");
+    setEmail("crystal.lake.slash@example.com");
+    setPassword("Friday13th_Killer");
   };
 
   return (
@@ -79,7 +73,7 @@ export function Navbar() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex flex-wrap items-center gap-2"
+              className="relative z-10 flex w-full flex-wrap items-center gap-2 lg:w-auto"
             >
               {mode === "signup" && (
                 <input
@@ -96,26 +90,24 @@ export function Navbar() {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                onPaste={handleEmailPaste}
                 placeholder="email"
                 name="email"
                 autoComplete="email"
                 spellCheck={false}
-                className="h-8 w-64 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
+                className="h-10 min-w-0 flex-1 rounded-md border border-cyan-300/30 bg-slate-900 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 sm:w-80 sm:flex-none"
                 type="email"
                 required
               />
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onPaste={handlePasswordPaste}
                 placeholder="password"
                 type="password"
                 name="password"
                 autoComplete={
                   mode === "login" ? "current-password" : "new-password"
                 }
-                className="h-8 w-40 rounded-md border border-cyan-300/20 bg-slate-900 px-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300"
+                className="h-10 min-w-0 flex-1 rounded-md border border-cyan-300/30 bg-slate-900 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-cyan-300 sm:w-48 sm:flex-none"
                 required
                 minLength={8}
                 maxLength={72}
@@ -123,10 +115,19 @@ export function Navbar() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="h-8 cursor-pointer rounded-md bg-cyan-500 px-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300 disabled:bg-cyan-900 disabled:text-slate-400"
+                className="h-10 cursor-pointer rounded-md bg-cyan-500 px-4 text-sm font-bold text-slate-950 transition hover:bg-cyan-300 disabled:bg-cyan-900 disabled:text-slate-400"
               >
                 {mode === "login" ? "Login" : "Sign up"}
               </button>
+              {mode === "login" ? (
+                <button
+                  type="button"
+                  onClick={fillDemoLogin}
+                  className="h-10 cursor-pointer rounded-md border border-cyan-300/25 bg-slate-900 px-3 text-sm font-bold text-cyan-100 transition hover:bg-cyan-300/10"
+                >
+                  Demo
+                </button>
+              ) : null}
               <button
                 type="button"
                 onClick={() =>
