@@ -96,7 +96,7 @@ export default function Home() {
         backgroundPosition: "center top",
       }}
     >
-      <div className="ml-0 mr-auto flex w-full max-w-[620px] flex-col gap-2.5 px-3 pb-5 pt-[22vh] sm:px-5 lg:pt-[18vh]">
+      <div className="ml-0 mr-auto flex w-full max-w-[620px] flex-col gap-2.5 px-3 pb-5 pt-[12vh] sm:px-5 lg:pt-[8vh]">
         <section className="grid gap-2.5">
           <div className="rounded-lg border border-cyan-300/20 bg-slate-950/56 p-3 shadow-2xl shadow-black/30 backdrop-blur-sm">
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
